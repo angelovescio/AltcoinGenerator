@@ -14,8 +14,8 @@
 # CHAIN variable below
 
 # change the following variables to match your new coin
-COIN_NAME="MyCoin"
-COIN_UNIT="MYC"
+COIN_NAME="ZuckerCoin"
+COIN_UNIT="ZUC"
 # 42 million coins at total (litecoin total supply is 84000000)
 TOTAL_SUPPLY=42000000
 MAINNET_PORT="54321"
@@ -26,17 +26,17 @@ PUBKEY_CHAR="20"
 # number of blocks to wait to be able to spend coinbase UTXO's
 COINBASE_MATURITY=100
 # leave CHAIN empty for main network, -regtest for regression network and -testnet for test network
-CHAIN="-regtest"
+CHAIN=""
 # this is the amount of coins to get as a reward of mining the block of height 1. if not set this will default to 50
-#PREMINED_AMOUNT=10000
+PREMINED_AMOUNT=10000
 
 # warning: change this to your own pubkey to get the genesis block mining reward
 GENESIS_REWARD_PUBKEY=044e0d4bc823e20e14d66396a64960c993585400c53f1e6decb273f249bfeba0e71f140ffa7316f2cdaaae574e7d72620538c3e7791ae9861dfe84dd2955fc85e8
 
 # dont change the following variables unless you know what you are doing
 LITECOIN_BRANCH=0.16
-GENESISHZERO_REPOS=https://github.com/lhartikk/GenesisH0
-LITECOIN_REPOS=https://github.com/litecoin-project/litecoin.git
+GENESISHZERO_REPOS=https://github.com/angelovescio/GenesisH0
+LITECOIN_REPOS=https://github.com/angelovescio/litecoin.git
 LITECOIN_PUB_KEY=040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9
 LITECOIN_MERKLE_HASH=97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9
 LITECOIN_MAIN_GENESIS_HASH=12a765e31ffd4059bada1e25190f6e98c99d9714d334efa41a195a7e7e04bfe2
