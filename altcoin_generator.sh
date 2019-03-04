@@ -20,7 +20,7 @@ COIN_UNIT="ZUC"
 TOTAL_SUPPLY=42000000
 MAINNET_PORT="54321"
 TESTNET_PORT="54322"
-PHRASE="Some newspaper headline that describes something that happened today"
+PHRASE=" September 20, 1977 - Fonzie jumps the shark"
 # First letter of the wallet address. Check https://en.bitcoin.it/wiki/Base58Check_encoding
 PUBKEY_CHAR="20"
 # number of blocks to wait to be able to spend coinbase UTXO's
