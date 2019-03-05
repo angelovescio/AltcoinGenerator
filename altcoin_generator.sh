@@ -17,7 +17,7 @@
 COIN_NAME="ZuckerCoin"
 COIN_UNIT="ZUC"
 # 42 million coins at total (litecoin total supply is 84000000)
-TOTAL_SUPPLY=10000
+TOTAL_SUPPLY=20000
 MAINNET_PORT="54321"
 TESTNET_PORT="54322"
 PHRASE="September 20, 1977 - Fonzie jumps the shark"
@@ -34,12 +34,13 @@ PREMINED_AMOUNT=10000
 GENESIS_REWARD_PUBKEY=044e0d4bc823e20e14d66396a64960c993585400c53f1e6decb273f249bfeba0e71f140ffa7316f2cdaaae574e7d72620538c3e7791ae9861dfe84dd2955fc85e8
 
 # dont change the following variables unless you know what you are doing
-LITECOIN_BRANCH=0.16
+#LITECOIN_BRANCH=0.16
+LITECOIN_BRANCH=master
 GENESISHZERO_REPOS=https://github.com/angelovescio/GenesisH0
 LITECOIN_REPOS=https://github.com/angelovescio/bitcoin-1.git
-LITECOIN_PUB_KEY=040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9
-LITECOIN_MERKLE_HASH=97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9
-LITECOIN_MAIN_GENESIS_HASH=12a765e31ffd4059bada1e25190f6e98c99d9714d334efa41a195a7e7e04bfe2
+LITECOIN_PUB_KEY=04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f
+LITECOIN_MERKLE_HASH=76ce5bf2eec937eb099ff8e86e87d0a27996bbfcbc9c2b8657fd075df96160bb
+LITECOIN_MAIN_GENESIS_HASH=0000000024b150ac790403b507a0f082dc7e7ad69541b0d0d9421eab5f6b159d
 LITECOIN_TEST_GENESIS_HASH=4966625a4b2851d9fdee139e56211a0d88575f59ed816ff5e6a63deb4e3e29a0
 LITECOIN_REGTEST_GENESIS_HASH=530827f38f93b43ed12af0b3ad25a288dc02ed74d6d7857862df51fc56c416f9
 MINIMUM_CHAIN_WORK_MAIN=0x0000000000000000000000000000000000000000000000c1bfe2bbe614f41260
@@ -143,7 +144,7 @@ generate_genesis_block()
 
     if [ ! -f ${COIN_NAME}-main.txt ]; then
         echo "Mining genesis block... this procedure can take many hours of cpu work.."
-        docker_run_genesis "python /GenesisH0/genesis.py -a scrypt -z \"$PHRASE\" -p $GENESIS_REWARD_PUBKEY 2>&1 | tee /GenesisH0/${COIN_NAME}-main.txt"
+        docker_run_genesis "python /GenesisH0/genesis.py -z \"$PHRASE\" -p $GENESIS_REWARD_PUBKEY -n 2625724463 -t 1231006505 2>&1 | tee /GenesisH0/${COIN_NAME}-main.txt"
     else
         echo "Genesis block already mined.."
         cat ${COIN_NAME}-main.txt
@@ -213,13 +214,13 @@ newcoin_replace_vars()
 
     # now replace all litecoin references to the new coin name
     for i in $(find . -type f | grep -v "^./.git"); do
-        $SED -i "s/Litecoin/$COIN_NAME/g" $i
-        $SED -i "s/litecoin/$COIN_NAME_LOWER/g" $i
-        $SED -i "s/LITECOIN/$COIN_NAME_UPPER/g" $i
-        $SED -i "s/LTC/$COIN_UNIT/g" $i
+        $SED -i "s/Bitcoin/$COIN_NAME/g" $i
+        $SED -i "s/bitcoin/$COIN_NAME_LOWER/g" $i
+        $SED -i "s/BITCOIN/$COIN_NAME_UPPER/g" $i
+        $SED -i "s/BTC/$COIN_UNIT/g" $i
     done
 
-    $SED -i "s/ltc/$COIN_UNIT_LOWER/g" src/chainparams.cpp
+    $SED -i "s/btc/$COIN_UNIT_LOWER/g" src/chainparams.cpp
 
     $SED -i "s/84000000/$TOTAL_SUPPLY/" src/amount.h
     $SED -i "s/1,48/1,$PUBKEY_CHAR/" src/chainparams.cpp
