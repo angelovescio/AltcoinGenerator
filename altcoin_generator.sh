@@ -14,8 +14,8 @@
 # CHAIN variable below
 
 # change the following variables to match your new coin
-COIN_NAME="ZuckerCoin"
-COIN_UNIT="ZUC"
+COIN_NAME="ZuckerKoin"
+COIN_UNIT="ZUK"
 # 42 million coins at total (litecoin total supply is 84000000)
 TOTAL_SUPPLY=20000
 MAINNET_PORT="54321"
@@ -24,9 +24,9 @@ PHRASE="September 20, 1977 - Fonzie jumps the shark"
 # First letter of the wallet address. Check https://en.bitcoin.it/wiki/Base58Check_encoding
 PUBKEY_CHAR="20"
 # number of blocks to wait to be able to spend coinbase UTXO's
-COINBASE_MATURITY=100
+COINBASE_MATURITY=10
 # leave CHAIN empty for main network, -regtest for regression network and -testnet for test network
-CHAIN=""
+CHAIN=
 # this is the amount of coins to get as a reward of mining the block of height 1. if not set this will default to 50
 PREMINED_AMOUNT=10000
 
@@ -152,7 +152,7 @@ generate_genesis_block()
 
     if [ ! -f ${COIN_NAME}-test.txt ]; then
         echo "Mining genesis block of test network... this procedure can take many hours of cpu work.."
-        docker_run_genesis "python /GenesisH0/genesis.py  -t 1486949366 -a scrypt -z \"$PHRASE\" -p $GENESIS_REWARD_PUBKEY 2>&1 | tee /GenesisH0/${COIN_NAME}-test.txt"
+        docker_run_genesis "python /GenesisH0/genesis.py -z \"$PHRASE\" -p $GENESIS_REWARD_PUBKEY -n 2625724463 -t 1231006505 2>&1 | tee /GenesisH0/${COIN_NAME}-test.txt"
     else
         echo "Genesis block already mined.."
         cat ${COIN_NAME}-test.txt
@@ -160,7 +160,7 @@ generate_genesis_block()
 
     if [ ! -f ${COIN_NAME}-regtest.txt ]; then
         echo "Mining genesis block of regtest network... this procedure can take many hours of cpu work.."
-        docker_run_genesis "python /GenesisH0/genesis.py -t 1296688602 -b 0x207fffff -n 0 -a scrypt -z \"$PHRASE\" -p $GENESIS_REWARD_PUBKEY 2>&1 | tee /GenesisH0/${COIN_NAME}-regtest.txt"
+        docker_run_genesis "python /GenesisH0/genesis.py -z \"$PHRASE\" -p $GENESIS_REWARD_PUBKEY -n 2625724463 -t 1231006505 2>&1 | tee /GenesisH0/${COIN_NAME}-regtest.txt"
     else
         echo "Genesis block already mined.."
         cat ${COIN_NAME}-regtest.txt
@@ -188,7 +188,7 @@ newcoin_replace_vars()
         echo "Warning: $COIN_NAME_LOWER already existing. Not replacing any values"
         return 0
     fi
-    if [ ! -d "litecoin-master" ]; then
+    if [ ! -d "master" ]; then
         # clone litecoin and keep local cache
         git clone -b $LITECOIN_BRANCH $LITECOIN_REPOS litecoin-master
     else
